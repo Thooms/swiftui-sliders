@@ -13,8 +13,8 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
             .environment(\.valueTrackConfiguration, ValueTrackConfiguration(
                 bounds: configuration.bounds,
                 leadingOffset: self.thumbSize.width / 2,
-                trailingOffset: self.thumbSize.width / 2)
-            )
+                trailingOffset: self.thumbSize.width / 2
+            ))
             .accentColor(Color.accentColor)
 
         return GeometryReader { geometry in
@@ -57,6 +57,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                     ),
                     y: geometry.size.height / 2
                 )
+                .allowsHitTesting(!self.options.contains(.disableThumbTrack))
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
@@ -103,8 +104,8 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
     }
 }
 
-extension HorizontalValueSliderStyle where Track == DefaultHorizontalValueTrack {
-    public init(thumb: Thumb, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
+public extension HorizontalValueSliderStyle where Track == DefaultHorizontalValueTrack {
+    init(thumb: Thumb, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
         self.track = DefaultHorizontalValueTrack()
         self.thumb = thumb
         self.thumbSize = thumbSize
@@ -113,8 +114,8 @@ extension HorizontalValueSliderStyle where Track == DefaultHorizontalValueTrack 
     }
 }
 
-extension HorizontalValueSliderStyle where Thumb == DefaultThumb {
-    public init(track: Track, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
+public extension HorizontalValueSliderStyle where Thumb == DefaultThumb {
+    init(track: Track, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
         self.track = track
         self.thumb = DefaultThumb()
         self.thumbSize = thumbSize
@@ -123,8 +124,8 @@ extension HorizontalValueSliderStyle where Thumb == DefaultThumb {
     }
 }
 
-extension HorizontalValueSliderStyle where Thumb == DefaultThumb, Track == DefaultHorizontalValueTrack {
-    public init(thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
+public extension HorizontalValueSliderStyle where Thumb == DefaultThumb, Track == DefaultHorizontalValueTrack {
+    init(thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
         self.track = DefaultHorizontalValueTrack()
         self.thumb = DefaultThumb()
         self.thumbSize = thumbSize
